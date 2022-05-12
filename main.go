@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	"hello/utils"
-
-	"hello/test"
-	"hello/test/arrtest"
-	"hello/test/timetest"
-	vartest2 "hello/test/vartest"
+	"godemotest/test"
+	"godemotest/test/arrtest"
+	"godemotest/test/timetest"
+	vartest2 "godemotest/test/vartest"
+	"godemotest/utils"
 )
 
 func init() {
