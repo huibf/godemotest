@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"godemotest/test"
 	"godemotest/test/arrtest"
@@ -17,15 +18,19 @@ func init() {
 
 func main() {
 
+	test.BaseTest()
+	test.LogRecoverTest()
+
+	time.Sleep(5 * time.Second)
 	os.Exit(1)
 
 	utils.Count()
 
-	test.BaseTest()
-
 	vartest2.VarTest()
 
 	timetest.Timetest()
+
+	timetest.SleepTimeTest()
 
 	//系统参数(flag包也可以获取命令参数)
 	fmt.Println("命令行参数数量：", len(os.Args))
