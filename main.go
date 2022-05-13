@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"time"
 
 	"godemotest/test"
 	"godemotest/test/arrtest"
@@ -20,9 +19,14 @@ func main() {
 
 	test.BaseTest()
 	test.LogRecoverTest()
+	test.LogSettest()
 
-	time.Sleep(5 * time.Second)
-	os.Exit(1)
+	filelogger := test.Logfile()
+
+	filelogger = test.LogFileSet(filelogger)
+	filelogger.Println("hello")
+
+	utils.End()
 
 	utils.Count()
 
