@@ -1,6 +1,7 @@
 package test
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -13,38 +14,80 @@ func LogSettest() {
 
 }
 
-func Logfile() *log.Logger {
+func Debug(logName string, tips string) {
+	logFile, err := os.OpenFile(logName, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		fmt.Printf("create %s err: %v \n ", logName, err)
+	}
+	if logFile != nil {
+		defer func(file *os.File) {
+			file.Close()
+		}(logFile)
+	}
+
+	debugLog := log.New(logFile, "[Debug]", log.Ldate)
+
+	debugLog.SetPrefix("[Debug]")
+	debugLog.SetFlags(log.Lshortfile)
+	debugLog.Println(tips)
+
+}
+
+func Logfile() (*log.Logger, error) {
 	datestr := time.Now().Format("2006-01-02")
 	file_a := "./" + datestr + ".log"
 
-	logg, errinfo := WriteFilelog(file_a)
-	if errinfo != nil {
-		logg.Output(2, errinfo.Error())
-	} else {
-		tips := time.Now().Format("2006-01-02 15:04:05") + "没有创建日期目录"
-		logg.Output(2, tips)
-		log.Println(tips)
+	logFile, err := os.OpenFile(file_a, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0766)
+	if err != nil {
+		return nil, err
 	}
+	// if logFile != nil {
+	// 	defer func() {
+	// 		if err := logFile.Close(); err != nil {
+	// 			return
+	// 		}
+	// 	}()
+	// }
 
+	logg := log.New(logFile, "pre_", log.Lshortfile)
+
+	return logg, err
+}
+
+func LogFileD() (*log.Logger, error) {
+	datestr := time.Now().Format("2006-01-02")
+	// datetimestr := time.Now().Format("2006-01-02 15:04:05")
 	hour := time.Now().Hour()
-	path := "./" + datestr + "/"
+	path := "./log/" + datestr + "/"
+	// path := "./" + datestr + "/"
 	file_b := path + strconv.Itoa(hour) + ".log"
 
-	_, err := os.Stat(path)
-	if err != nil {
-		ok := os.Mkdir(path, os.ModePerm)
+	_, err_a := os.Stat(path)
+	if err_a != nil {
+		// ok := os.Mkdir(path, os.ModePerm)
+		ok := os.MkdirAll(path, os.ModePerm)
 		if ok != nil {
-			logg.SetPrefix("make_")
-			logg.Output(2, ok.Error())
+			log.Println(ok.Error())
+			panic(ok)
 		}
 	}
 
-	logg, err_b := WriteFilelog(file_b)
-	if err_b != nil {
-		panic(err_b)
+	logFile, err := os.OpenFile(file_b, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0766)
+	if err != nil {
+		return nil, err
 	}
+	// if logFile != nil {
+	// 	defer func() {
+	// 		if err := logFile.Close(); err != nil {
+	// 			return
+	// 		}
+	// 	}()
+	// }
 
-	return logg
+	logg := log.New(logFile, "pre_", log.Lshortfile)
+
+	return logg, err
+
 }
 
 func LogFileSet(logg *log.Logger) *log.Logger {
@@ -53,7 +96,7 @@ func LogFileSet(logg *log.Logger) *log.Logger {
 	return logg
 }
 
-func WriteFilelog(file string) (*log.Logger, error) {
+func OpenFilelog(file string) (*log.Logger, error) {
 	logFile, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0766)
 	if err != nil {
 		return nil, err

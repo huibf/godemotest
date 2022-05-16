@@ -21,10 +21,15 @@ func main() {
 	test.LogRecoverTest()
 	test.LogSettest()
 
-	filelogger := test.Logfile()
+	test.Debug("./debug.log", "测试的显示内容")
 
+	filelogger, _ := test.Logfile()
 	filelogger = test.LogFileSet(filelogger)
-	filelogger.Println("hello")
+	filelogger.Output(2, "hello  logfile")
+
+	fileloggerD, _ := test.LogFileD()
+	fileloggerD = test.LogFileSet(fileloggerD)
+	fileloggerD.Println("hello  logfileD")
 
 	utils.End()
 
