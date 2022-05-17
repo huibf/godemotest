@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"time"
 
 	"godemotest/test"
 	"godemotest/test/arrtest"
@@ -21,7 +23,7 @@ func main() {
 	test.LogRecoverTest()
 	test.LogSettest()
 
-	test.Debug("./debug.log", "测试的显示内容")
+	test.Debug("./debug.log", time.Now().String()+"测试的显示内容")
 
 	filelogger, _ := test.Logfile()
 	filelogger = test.LogFileSet(filelogger)
@@ -30,6 +32,8 @@ func main() {
 	fileloggerD, _ := test.LogFileD()
 	fileloggerD = test.LogFileSet(fileloggerD)
 	fileloggerD.Println("hello  logfileD")
+
+	log.Print("log print")
 
 	utils.End()
 
