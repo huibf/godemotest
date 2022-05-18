@@ -15,7 +15,7 @@ func LogSettest() {
 }
 
 func Debug(logName string, tips string) {
-	logFile, err := os.OpenFile(logName, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	logFile, err := os.OpenFile(logName, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0766)
 	if err != nil {
 		fmt.Printf("create %s err: %v \n ", logName, err)
 	}
