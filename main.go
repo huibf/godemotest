@@ -39,6 +39,8 @@ func main() {
 
 	test.Forbase()
 
+	test.ForChan()
+
 	utils.End()
 
 	utils.Count()
