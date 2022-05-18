@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"time"
 
@@ -33,6 +34,8 @@ func main() {
 
 	fileloggerD.Println("hello  logfileD")
 	fileloggerD.Output(2, "logfiled:输出测试文字")
+
+	log.Print("log print")
 
 	utils.End()
 
