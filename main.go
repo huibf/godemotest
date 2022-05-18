@@ -37,6 +37,8 @@ func main() {
 
 	log.Print("log print")
 
+	test.Forbase()
+
 	utils.End()
 
 	utils.Count()
