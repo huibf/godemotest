@@ -35,7 +35,7 @@ func main() {
 	fileloggerD.Println("hello  logfileD")
 	fileloggerD.Output(2, "logfiled:输出测试文字")
 
-	log.Print("log print")
+	log.Print("log print   gitpod change")
 
 	utils.End()
 
